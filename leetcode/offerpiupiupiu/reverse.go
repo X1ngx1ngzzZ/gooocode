@@ -1,3 +1,4 @@
+//反转链表
 type ListNode struct {
 	    Val int
 	     Next *ListNode
@@ -55,4 +56,20 @@ func reverseList(head *ListNode) *ListNode {
  return last
 
 	
+}
+
+//最终版本，两个指针，依次前移
+func reverseList(head *ListNode) *ListNode {
+	//第一个让它指为nil
+	pre:=new(listNode)
+	//如果不让它为空他会为0
+	fmt.Println(pre)
+	pre=nil
+	cur:=head
+	for cur!=nil{
+		cur.Next,pre,cur=pre,cur,cur.Next
+//	pre,cur,cur.Next = cur,cur.Next,pre
+	}
+	//一定是返回前面的指针，因为这时候后面的已经指到nil了
+	return cur
 }

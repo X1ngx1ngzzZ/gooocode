@@ -12,13 +12,14 @@ type sq struct {
 func main() {
 	m := []int{109, 137, 49, 190, 87}
 	fmt.Println(m)
-	bubblesort(m)
+	//bubblesort(m)
 	//selectsort(m)
-	fmt.Println(len(m))
+	//fmt.Println(len(m))
 	//InsertSort(m)
 	//Shellsort(m)
-	fmt.Println(m)
-
+	//fmt.Println(m)
+	//fmt.Println(Qicksort(m))
+	fmt.Println(quicksort(m))
 }
 
 /*
@@ -142,3 +143,106 @@ func buildMaxHeap(arry []int,l int){
 	-
 }
 */
+
+//快排
+func Qicksort(arry []int) []int {
+	//由于返回值不同，这里进行递归调用。这里注意切片溢出
+	return Qsort(arry, 0, len(arry)-1)
+}
+
+func Qsort(arry []int, low int, high int) []int {
+	var flag int
+	//当左边计数器小于右边的时候，进行func deal
+	if low < high {
+		//把low和high碰到一起的那个位置返回来
+		flag = deal(arry, low, high)
+
+		//对左半部分进行排序
+		Qsort(arry, low, flag-1)
+		//右半部分排序
+		Qsort(arry, flag+1, high)
+
+	}
+	return arry
+}
+
+//真正排序
+/*
+func deal(arry []int, low int, high int) int {
+	m := high / 2
+	choose(arry, low, m, high)
+	//设置P为中间的值，让左边比他小，右边比他大，这里设置了low的位置为初始数字，所以从high位开始找
+	p := arry[low]
+	//low和high碰到的时候就停止
+	for low < high {
+		for {
+			//high位置的大于P就不管，继续往前找，否则就交换low和high的位置
+			if arry[high] >= p && low < high {
+				high--
+			} else {
+				arry[low], arry[high] = arry[high], arry[low]
+				break
+			}
+		}
+		for {
+			//low位小于P就继续向后找，否则交换
+			if arry[low] <= p && low < high {
+				low++
+			} else {
+				arry[low], arry[high] = arry[high], arry[low]
+				break
+			}
+		}
+	}
+	return low
+}
+
+func choose(arry []int, low, m, high int) {
+	if arry[low] > arry[high] {
+		arry[low], arry[high] = arry[high], arry[low]
+	} else if arry[m] > arry[high] {
+		arry[m], arry[high] = arry[high], arry[m]
+	} else if arry[m] > arry[low] {
+		arry[m], arry[low] = arry[low], arry[m]
+	}
+}
+*/
+
+func quicksort(arry []int) []int {
+	//传入低位和高位
+	return sort(arry, 0, len(arry)-1)
+}
+
+func sort(arry []int, low int, high int) []int {
+	var flag int
+	if low < high {
+		flag = deal(arry, low, high)
+		sort(arry, low, flag-1)
+		sort(arry, flag+1, high)
+	}
+	//排完把数组返回去
+	return arry
+}
+
+func deal(arry []int, low int, high int) int {
+	value := arry[low]
+	for low < high {
+		for low < high {
+			if arry[high] >= value {
+				high--
+			} else {
+				arry[low], arry[high] = arry[high], arry[low]
+				break
+			}
+		}
+		for low < high {
+			if arry[low] <= value {
+				low++
+			} else {
+				arry[low], arry[high] = arry[high], arry[low]
+				break
+			}
+		}
+	}
+	return low
+}
