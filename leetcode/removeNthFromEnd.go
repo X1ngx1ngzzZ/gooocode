@@ -1,19 +1,23 @@
+package main
+
+import "fmt"
+
 /*
 func removeNthFromEnd(head *ListNode, n int) *ListNode {
 	l:=func(head)
     l1:=l+1-n
 	l2:= fanhui(head,n)
 	return l2
-	
+
 }
 func len(head *ListNode)int{
 	 pre :=head
 	 count:=0
-	
+
 	for pre!= nil{
 		count++
 		pre = pre.Next
-		
+
 	}
 	return count
 }
@@ -28,21 +32,22 @@ pre.Next=pre.Next.Next
 }
 */
 type ListNode struct {
-	    Val int
-	     Next *ListNode
-	 }
+	Val  int
+	Next *ListNode
+}
+
 func removeNthFromEnd(head *ListNode, n int) *ListNode {
-	pre:=new(ListNode)
-	pre.Next=head
-	fast,slow:=head,head
-	for i:=0;i<=n;i++{
-		fast=fast.Next
+	pre := new(ListNode)
+	pre.Next = head
+	fast, slow := head, head
+	for i := 0; i <= n; i++ {
+		fast = fast.Next
 	}
-	for fast!=nil{
-		fast=fast.Next
-		slow=slow.Next
+	for fast != nil {
+		fast = fast.Next
+		slow = slow.Next
 	}
-	slow.Next=slow.Next.Next
+	slow.Next = slow.Next.Next
 	return pre.Next
 	//return head
 }
@@ -58,20 +63,20 @@ fast,slow:=head,head
     }
     slow.Next=slow.Next.Next
 	return head
-	*/
-	/*
+*/
+/*
 	type ListNode struct {
 		Val int
 		Next *ListNode
 	}
-   
+
    func main() {
 	head := &ListNode{}
 	head.Val = 1
 	fmt.Println(head.Val)
-   
+
    }
-   
+
 
 func main() {
 head := new(ListNode)
@@ -93,7 +98,6 @@ fmt.Printf("%T",head)
 */
 
 
-
 func removeNthFromEnd(head *ListNode, n int) *ListNode {
 	pre:=make(ListNode)
 	pre.Next=head
@@ -108,4 +112,23 @@ func removeNthFromEnd(head *ListNode, n int) *ListNode {
 	slow.Next=slow.Next.Next
 	//
 	return pre.Next
+}
+
+func reverseList(head *ListNode) *ListNode {
+	cur := new(ListNode)
+	cur = nil
+	//	var cur *ListNode
+	cur = nil
+	pre := head
+	for pre != nil {
+		pre, cur, pre.Next = pre.Next, pre, cur
+	}
+	return cur
+}
+
+func main() {
+	pre := new(*ListNode)
+	fmt.Println(pre)
+	var cur *ListNode
+	fmt.Println(cur)
 }

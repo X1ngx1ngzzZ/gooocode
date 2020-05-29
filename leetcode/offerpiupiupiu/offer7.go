@@ -15,6 +15,7 @@ type TreeNode{
 
 
 func buildTree(preorder []int, inorder []int) *TreeNode {
+	//这个题里这个地方很关键，递归结束的终点，要重视啊
 	if preorder == nil || inorder == nil {
 		return nil
 	}
@@ -31,7 +32,7 @@ func buildTree(preorder []int, inorder []int) *TreeNode {
 	//Treenode.left:preorder:preorder[1:root]    inorder:inorder[:k-1]
 	return &TreeNode{
 		Val: preorder[0],
-		//这里一定要注意数组的溢出
+		//这里一定要注意数组的溢出,[:]中输出的是不包含后面的元素的
 		Left:  buildTree(preorder[1:root+1], inorder[0:root]),
 		right: buildTree(preorder[root+1:], inorder[root+1:]),
 	}

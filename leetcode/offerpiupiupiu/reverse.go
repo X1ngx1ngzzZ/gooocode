@@ -63,7 +63,6 @@ func reverseList(head *ListNode) *ListNode {
 	//第一个让它指为nil
 	pre:=new(listNode)
 	//如果不让它为空他会为0
-	fmt.Println(pre)
 	pre=nil
 	cur:=head
 	for cur!=nil{

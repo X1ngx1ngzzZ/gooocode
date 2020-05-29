@@ -20,6 +20,7 @@ func getKthFromEnd(head *ListNode, k int) *ListNode {
 		return nil
 	}
 	fast,slow:=head,head
+//这样直接取头结点会导致特殊情况的判别情况影响到正常的，所以正确的在后面
 	for i:=0;i<k;i++{
 		fast=fast.Next
 		if fast ==nil {
@@ -37,12 +38,17 @@ func getKthFromEnd(head *ListNode, k int) *ListNode {
 	if head ==nil{
 		return nil
 	}
-	fast,slow:=head.Next,head.Next
+	//建个中间值，让它从头结点前面开始
+    pre:=new(ListNode)
+    pre.Next=head
+	fast,slow:=pre,pre
 	for i:=0;i<k;i++{
 		fast=fast.Next
+        //避免k值大于链表长度
 		if fast ==nil {
 			return nil
 		}
+        
 	}
 	for fast!=nil{
 		fast=fast.Next

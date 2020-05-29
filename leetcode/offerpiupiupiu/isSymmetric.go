@@ -41,3 +41,10 @@ func max(a, b int) int {
 	_, b := cal(root)
 	return b
    }
+
+   //看二叉树是否是镜像对称的
+   func isSymmetric(root *TreeNode) bool {
+	   if root==nil{
+		   return
+	   }
+   }

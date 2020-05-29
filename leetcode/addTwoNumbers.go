@@ -185,6 +185,7 @@ func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
 	} else if l2 == nil {
 		return l1
 	}
+	//new个新节点
 	l3 := new(ListNode)
 	result := l3
 	carry := 0

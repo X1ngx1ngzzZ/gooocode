@@ -48,6 +48,7 @@ func TestEqual(t *testing.T) {
 }
 
 func BenchmarkSplit(b *testing.B) {
+  //b.N是一个动态的数字
 	for i := 0; i < b.N; i++ {
 		Equal(3, 4)
 	}
