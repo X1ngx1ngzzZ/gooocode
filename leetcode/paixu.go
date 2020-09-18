@@ -11,15 +11,16 @@ type sq struct {
 
 func main() {
 	m := []int{109, 137, 49, 190, 87}
-	fmt.Println(m)
-	//bubblesort(m)
-	//selectsort(m)
+	//fmt.Println(m)
+	//fmt.Println(bubblesort(m))
+
 	//fmt.Println(len(m))
 	//InsertSort(m)
 	//Shellsort(m)
 	//fmt.Println(m)
-	//fmt.Println(Qicksort(m))
-	fmt.Println(quicksort(m))
+	//fmt.Println(mergeSort(m))
+	//fmt.Println(selectSortt(m))
+	fmt.Println(ShellSort(m))
 }
 
 /*
@@ -66,28 +67,21 @@ func selectsort(arry []int) []int {
 			if arry[min] > arry[j] {
 				min = j
 			}
-			if i != min {
-				arry[i], arry[min] = arry[min], arry[i]
-			}
 		}
+		arry[i], arry[min] = arry[min], arry[i]
 	}
 	return arry
 }
-
+//
 func InsertSort(arry []int) []int {
-
+	//109, 137, 49, 190, 87
 	for i := 1; i < len(arry); i++ {
-		flag := arry[i]
 		key := i - 1
-		//不能缺这个Key>=0
-		for key >= 0 && flag < arry[key] {
-			arry[key+1] = arry[key]
+		for key >= 0 && arry[i] < arry[key] {
 			key--
 		}
-		if key+1 != i {
-			arry[key+1] = flag
-		}
-
+			arry[i],arry[key+1]=arry[key+1],arry[i]
+			fmt.Println(arry)
 	}
 	return arry
 }
@@ -208,41 +202,176 @@ func choose(arry []int, low, m, high int) {
 }
 */
 
-func quicksort(arry []int) []int {
-	//传入低位和高位
-	return sort(arry, 0, len(arry)-1)
+//func quicksort(arry []int) []int {
+//	//传入低位和高位
+//	return sort(arry, 0, len(arry)-1)
+//}
+//
+//func sort(arry []int, low int, high int) []int {
+//	var flag int
+//	if low < high {
+//		flag = deal(arry, low, high)
+//		sort(arry, low, flag-1)
+//		sort(arry, flag+1, high)
+//	}
+//	//排完把数组返回去
+//	return arry
+//}
+//
+//func deal(arry []int, low int, high int) int {
+//	value := arry[low]
+//	for low < high {
+//		for low < high {
+//			if arry[high] >= value {
+//				high--
+//			} else {
+//				arry[low], arry[high] = arry[high], arry[low]
+//				break
+//			}
+//		}
+//		for low < high {
+//			if arry[low] <= value {
+//				low++
+//			} else {
+//				arry[low], arry[high] = arry[high], arry[low]
+//				break
+//			}
+//		}
+//	}
+//	return low
+//}
+//
+
+//2020 7 27 快速排序
+func quicksort(arry []int)[]int{
+	return quick(arry,0,len(arry)-1)
 }
 
-func sort(arry []int, low int, high int) []int {
+func quick(arry []int,low,high int)[]int{
 	var flag int
-	if low < high {
+	if low<high {
 		flag = deal(arry, low, high)
-		sort(arry, low, flag-1)
-		sort(arry, flag+1, high)
+		quick(arry, low, flag-1)
+		quick(arry, flag+1, high)
 	}
-	//排完把数组返回去
 	return arry
 }
 
-func deal(arry []int, low int, high int) int {
-	value := arry[low]
+
+func deal(arry []int,low,high int)int{
+	v:=arry[high]
+	//如果v取low值，那么就要从high开始
+	//取high，就要从low开始
 	for low < high {
+		if arry[low] <= v {
+			low++
+		} else {
+			arry[low], arry[high] = arry[high], arry[low]
+			break
+		}
+	}
+
+	for low<high {
 		for low < high {
-			if arry[high] >= value {
+			if arry[high] >= v {
 				high--
 			} else {
 				arry[low], arry[high] = arry[high], arry[low]
 				break
 			}
 		}
-		for low < high {
-			if arry[low] <= value {
-				low++
-			} else {
-				arry[low], arry[high] = arry[high], arry[low]
-				break
-			}
-		}
+
+
 	}
 	return low
 }
+
+//2020728 冒泡排序
+func bubble(arry []int)[]int{
+	for i:=0;i<len(arry);i++{
+		for j:=i+1;j<len(arry);j++{
+			if arry[i]>arry[j]{
+				arry[i],arry[j]=arry[j],arry[i]
+			}
+		}
+	}
+	return arry
+}
+
+//20200807 归并排序
+func mergeSort(arry []int)[]int{
+	if len(arry)<2{
+		return arry
+	}
+	mid :=len(arry)/2
+	left:=mergeSort(arry[:mid])
+	right:=mergeSort(arry[mid:])
+	result:=merge(left,right)
+	return result
+}
+
+func merge(left,right []int)[]int {
+	var result []int
+	leftIndex := 0
+	rightIndex := 0
+	//取左边数组遍历，看左边数组的每个数位置
+	for leftIndex < len(left) {
+		//右边数组先完了
+		if rightIndex == len(right) {
+			result = append(result, left[leftIndex:]...)
+			break
+		}
+		if left[leftIndex] <= right[rightIndex]{
+			result = append(result, left[leftIndex])
+		leftIndex++
+		}else{
+		result = append(result, right[rightIndex])
+		rightIndex++
+		}
+	}
+	//左边数组先完了
+	result=append(result,right[rightIndex:]...)
+	return result
+}
+
+//20200807
+func selectSortt(arry []int)[]int{
+	for i:=0;i<len(arry);i++{
+		min:=i
+		for j:=i+1;j<len(arry);j++{
+			if arry[min]>arry[j]{
+				min=j
+			}
+		}
+		if i!=min {
+			arry[i], arry[min] = arry[min], arry[i]
+		}
+	}
+	return arry
+}
+
+//20200809 shellSort
+func ShellSort(a []int)[]int{
+	n := len(a)
+	h := 1
+	for h < n/3 { //寻找合适的间隔h
+		h = 3*h + 1
+	}
+	for h >= 1 {
+		//将数组变为间隔h个元素有序
+		for i := h; i < n; i++ {
+			//间隔h插入排序
+			for j := i; j >= h && a[j] < a[j-h]; j -= h {
+				swap(a, j, j-h)
+			}
+		}
+		h /= 3
+	}
+	return a
+}
+
+func swap(slice []int, i int, j int) {
+	slice[i], slice[j] = slice[j], slice[i]
+}
+
+

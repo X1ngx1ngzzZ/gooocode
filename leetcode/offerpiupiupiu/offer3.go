@@ -1,6 +1,10 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"sort"
+)
+
 //找出数组中重复的数
 func main() {
 	s := []int{1, 2, 3, 4, 5, 0, 2}
@@ -94,3 +98,32 @@ func dup3(arry []int) int {
 	}
 	return -1
 }
+
+//2020、6、5
+type ListNode struct {
+	Val  int
+	Next *ListNode
+}
+
+//反向打印每个节点的值
+//先正向打印，再反过来
+func reversePrint(head *ListNode) []int {
+	tmp := []int{}
+	pre := head
+	for pre != nil {
+		tmp = append(tmp, pre.Val)
+		pre = pre.Next
+	}
+	res := []int{}
+	for len(tmp) != 0 {
+		res = append(res, tmp[len(tmp)])
+		tmp = tmp[:len(tmp)-1]
+	}
+	return res
+}
+
+//或者可以直接遍历链表长度，反着放进去
+
+//2020819
+map
+

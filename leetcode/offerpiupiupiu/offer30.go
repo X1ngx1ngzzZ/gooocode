@@ -39,3 +39,44 @@ func (this *MinStack) Top() int {
 func (this *MinStack) Min() int {
 	return this.data[len(this.data)-1].min
 }
+
+
+//2020617
+
+type Node struct{
+	data int
+	min int
+}
+
+type MinStack struct{
+	slice []Node
+}
+
+func Constructor() MinStack {
+	return MinStack{}
+}
+
+
+func (this *MinStack) Push(x int)  {
+newnode:=Node{data:x,min:x}
+if len(this.slice)>0&&this.slice[len(this.slice)-1].min<x{
+newnode.min=this.slice[len(this.slice)-1].min
+}
+this.slice=append(this.slice,newnode)
+
+}
+
+
+func (this *MinStack) Pop()  {
+this.slice=this.slice[:len(this.slice)-1]
+}
+
+
+func (this *MinStack) Top() int {
+return this.slice[len(this.slice)-1].data
+}
+
+
+func (this *MinStack) Min() int {
+return this.slice[len(this.slice)-1].min
+}

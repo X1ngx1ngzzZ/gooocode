@@ -37,3 +37,19 @@ func search(arry [][]int, target int) bool {
 	}
 	return false
 }
+//2020819
+func findNumberIn2DArray(matrix [][]int, target int) bool {
+	//第n行第0列
+	i:=len(matrix)-1
+	j:=0
+	for i>=0&&j<=len(matrix[0])-1{
+		if matrix[i][j]<target{
+			j++
+		}else if matrix[i][j]>target{
+			i--
+		}else if matrix[i][j]==target{
+			return true
+		}
+	}
+	return  false
+}

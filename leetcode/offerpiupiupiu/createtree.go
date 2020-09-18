@@ -31,14 +31,14 @@ func zhongxu2(Tree *tree) []int{
 	if Tree == nil{
 		return nil
 	}
-	result:=[]int
-	stack:=[]*tree
+	result:=[]int{}
+	stack:=[]*tree{}
 	for Tree != nil|| len(stack) != 0{
 		if Tree !=nil{
 			stack = append(stack,Tree)
 			Tree = Tree.left
 		}else{
-			Tree = stack[:len(stack)-1]
+			Tree = stack[len(stack)-1]
 			result = append(result,Tree.Val)
 			stack = stack[:len(stack)-1]
 			Tree = Tree.right
@@ -54,8 +54,8 @@ func qianxu2(Tree *tree) []int{
 	if Tree == nil{
 		return nil
 	}
-	result:=[]int
-	stack:=[]*tree
+	result:=[]int{}
+	stack:=[]*tree{}
 	for Tree != nil|| len(stack) != 0{
 		if Tree !=nil{
 			//压栈的时候就直接加到结果里
@@ -63,7 +63,7 @@ func qianxu2(Tree *tree) []int{
 			stack = append(stack,Tree)
 			Tree = Tree.left
 		}else{
-			Tree = stack[:len(stack)-1]
+			Tree = stack[len(stack)-1]
 			stack = stack[:len(stack)-1]
 			Tree = Tree.right
 

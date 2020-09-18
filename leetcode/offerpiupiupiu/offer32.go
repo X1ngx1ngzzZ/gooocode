@@ -112,3 +112,88 @@ func levelOrder(root *TreeNode) [][]int {
 	}
 	return res	
 }
+
+
+//20200714
+// I
+
+func levelOrder(root *TreeNode) []int {
+ if root==nil{
+ return nil
+ }
+ res := make([]int, 0)
+ //建立每个节点为NODE类型的切片
+ queue := []*TreeNode{root}
+ for len(queue)!=0{
+ 	tmp:=[]*TreeNode{}
+ 	for _, v := range queue{
+		res=append(res,v.Val)
+		if v.Left!=nil{
+			tmp=append(tmp,v.Left)
+ }
+ 		if v.Right!=nil{
+ 			tmp=append(tmp,v.Right)
+ }
+ 		}
+ 		queue=tmp
+ 	}
+ 	return res
+ }
+
+ //II
+ func levelOrder(root *TreeNode) [][]int {
+	if root==nil{
+		return nil
+ }
+ 	res:=make([][]int,0)
+ 	queue:=[]*TreeNode{root}
+ 	for len(queue)!=0{
+ 		tmp:=[]*TreeNode{}
+ 		tmpArry:=make([]int,0)
+ 		for _,v:=range queue{
+ 			tmpArry=append(tmpArry,v.Val)
+ 			if v.Left!=nil{
+ 				tmp=append(tmp,v.Left)
+ }
+ 			if v.Right!=nil{
+ 				tmp=append(tmp,v.Right)
+ }
+ }
+ 			res=append(res,tmpArry)
+ 			queue=tmp
+
+ }
+ return res
+ }
+
+//III
+func levelOrder(root *TreeNode) [][]int {
+	if root ==nil{
+		return nil
+ }
+ 	res:=make([][]int,0)
+ 	queue:=[]*TreeNode{root}
+ 	flag:=1
+ 	for len(queue)!=0{
+ 		tmp:=[]*TreeNode{}
+ 		tmpArry:=[]int{}
+ 		for _,v:=range queue{
+ 		if flag%2==1{
+ 			tmpArry=append(tmpArry,v.Val)
+ 		}else{
+ 			val:=[]int{v.Val}
+ 			tmpArry=append(val,tmpArry...)
+ 		}
+ 	if v.Left!=nil{
+ 	tmp=append(tmp,v.Left)
+ 	}
+ 	if v.Right!=nil{
+ 	tmp=append(tmp,v.Right)
+ 	}
+ }
+ res=append(res,tmpArry)
+ queue=tmp
+ flag++
+ }
+ return res
+}
